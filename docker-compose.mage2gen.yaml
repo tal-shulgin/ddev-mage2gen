@@ -7,17 +7,13 @@ services:
     volumes:
       - "${DDEV_SITEROOT}:/usr/app/src"
     environment:
-      - MYSQL_DB=${DDEV_DATABASE}
-      - MYSQL_USERNAME=${DDEV_DATABASE_USER}
-      - MYSQL_PASSWORD=${DDEV_DATABASE_PASSWORD}
-      - MYSQL_HOST=${DDEV_DATABASE_HOST}
-      - MYSQL_PORT=${DDEV_DATABASE_PORT}
+      - MYSQL_DB=${DDEV_DATABASE:-db} # Default to 'db' if DDEV_DATABASE is not set
+      - MYSQL_USERNAME=${DDEV_DATABASE_USER:-db} # Default to 'db' if DDEV_DATABASE_USER is not set
+      - MYSQL_PASSWORD=${DDEV_DATABASE_PASSWORD:-db} # Default to 'db' if DDEV_DATABASE_PASSWORD is not set
+      - MYSQL_HOST=${DDEV_DATABASE_HOST:-db} # Default to 'db' if DDEV_DATABASE_HOST is not set
+      - MYSQL_PORT=${DDEV_DATABASE_PORT:-3306} # Default to '3306' if DDEV_DATABASE_PORT is not set
       - SECRET_KEY=sdafdsfas # Replace with a secure key
       - USE_SQLITE=0 # Use MySQL by default
       - MODULE_GENERATION_PATH=/usr/app/src/app/code # Adjust if needed
     depends_on:
-        - ddev-db
-  ddev-db:
-    extends:
-      file: ${DDEV_GLOBAL_DIR}/docker-compose.db.yaml
-      service: db
+        - db
