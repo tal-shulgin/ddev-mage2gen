@@ -1,11 +1,11 @@
-[![tests](https://github.com/ddev/ddev-mage2gen/actions/workflows/tests.yml/badge.svg)](https://github.com/ddev/ddev-mage2gen/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2024.svg)
+[![tests](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml/badge.svg)](https://github.com/ddev/ddev-addon-template/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2024.svg)
 
 # DDEV add-on template <!-- omit in toc -->
 
--   [What is DDEV add-on template?](#what-is-ddev-add-on-template)
--   [Components of the repository](#components-of-the-repository)
--   [Getting started](#getting-started)
--   [How to debug in Github Actions](./README_DEBUG.md)
+* [What is DDEV add-on template?](#what-is-ddev-add-on-template)
+* [Components of the repository](#components-of-the-repository)
+* [Getting started](#getting-started)
+* [How to debug in Github Actions](./README_DEBUG.md)
 
 ## What is DDEV add-on template?
 
@@ -19,22 +19,22 @@ This repository is a quick way to get started. You can create a new repo from th
 
 ## Components of the repository
 
--   The fundamental contents of the add-on service or other component. For example, in this template there is a [docker-compose.mage2gen.yaml](docker-compose.mage2gen.yaml) file.
--   An [install.yaml](install.yaml) file that describes how to install the service or other component.
--   A test suite in [test.bats](tests/test.bats) that makes sure the service continues to work as expected.
--   [Github actions setup](.github/workflows/tests.yml) so that the tests run automatically when you push to the repository.
+* The fundamental contents of the add-on service or other component. For example, in this template there is a [docker-compose.addon-template.yaml](docker-compose.addon-template.yaml) file.
+* An [install.yaml](install.yaml) file that describes how to install the service or other component.
+* A test suite in [test.bats](tests/test.bats) that makes sure the service continues to work as expected.
+* [Github actions setup](.github/workflows/tests.yml) so that the tests run automatically when you push to the repository.
 
 ## Getting started
 
 1. Choose a good descriptive name for your add-on. It should probably start with "ddev-" and include the basic service or functionality. If it's particular to a specific CMS, perhaps `ddev-<CMS>-servicename`.
 2. Create the new template repository by using the template button.
-3. Globally replace "mage2gen" with the name of your add-on.
-4. Add the files that need to be added to a DDEV project to the repository. For example, you might replace `docker-compose.mage2gen.yaml` with the `docker-compose.*.yaml` for your recipe.
+3. Globally replace "addon-template" with the name of your add-on.
+4. Add the files that need to be added to a DDEV project to the repository. For example, you might replace `docker-compose.addon-template.yaml` with the `docker-compose.*.yaml` for your recipe.
 5. Update the `install.yaml` to give the necessary instructions for installing the add-on:
 
-    - The fundamental line is the `project_files` directive, a list of files to be copied from this repo into the project `.ddev` directory.
-    - You can optionally add files to the `global_files` directive as well, which will cause files to be placed in the global `.ddev` directory, `~/.ddev`.
-    - Finally, `pre_install_commands` and `post_install_commands` are supported. These can use the host-side environment variables documented [in DDEV docs](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/#environment-variables-provided).
+   * The fundamental line is the `project_files` directive, a list of files to be copied from this repo into the project `.ddev` directory.
+   * You can optionally add files to the `global_files` directive as well, which will cause files to be placed in the global `.ddev` directory, `~/.ddev`.
+   * Finally, `pre_install_commands` and `post_install_commands` are supported. These can use the host-side environment variables documented [in DDEV docs](https://ddev.readthedocs.io/en/stable/users/extend/custom-commands/#environment-variables-provided).
 
 6. Update `tests/test.bats` to provide a reasonable test for your repository. Tests will run automatically on every push to the repository, and periodically each night. Please make sure to address test failures when they happen. Others will be depending on you. Bats is a testing framework that just uses Bash. To run a Bats test locally, you have to [install bats-core](https://bats-core.readthedocs.io/en/stable/installation.html) first. Then you download your add-on, and finally run `bats ./tests/test.bats` within the root of the uncompressed directory. To learn more about Bats see the [documentation](https://bats-core.readthedocs.io/en/stable/).
 7. When everything is working, including the tests, you can push the repository to GitHub.
