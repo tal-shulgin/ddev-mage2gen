@@ -70,7 +70,6 @@ pre_install_actions:
 project_files:
     - docker-compose.mage2gen.yaml
     - Dockerfile
-    - pull_mage2gen_core.sh # Add this if needed
 
     # - commands/web/add-on-command
     # - commands/host/add-on-command-host
