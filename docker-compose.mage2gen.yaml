@@ -5,7 +5,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - "${DDEV_SITEROOT}:/usr/app/src"
+      - "${DDEV_SITEROOT:-/var/www/html}:/usr/app/src" # Default to /var/www/html if DDEV_SITEROOT is not set
     environment:
       - MYSQL_DB=${DDEV_DATABASE:-db} # Default to 'db' if DDEV_DATABASE is not set
       - MYSQL_USERNAME=${DDEV_DATABASE_USER:-db} # Default to 'db' if DDEV_DATABASE_USER is not set
