@@ -1,20 +1,3 @@
-# #ddev-generated
-# # Simple template to demonstrate mage2gen
-# services:
-#   mage2gen:
-#     container_name: ddev-${DDEV_SITENAME}-mage2gen
-#     image: busybox:stable
-#     command: tail -f /dev/null
-#     restart: "no"
-#     # These labels ensure this service is discoverable by ddev.
-#     labels:
-#       com.ddev.site-name: ${DDEV_SITENAME}
-#       com.ddev.approot: $DDEV_APPROOT
-
-#     volumes:
-#     - ".:/mnt/ddev_config"
-#     - "ddev-global-cache:/mnt/ddev-global-cache"
-
 version: '3.6'
 services:
   mage2gen:
@@ -33,8 +16,8 @@ services:
       - USE_SQLITE=0 # Use MySQL by default
       - MODULE_GENERATION_PATH=/usr/app/src/app/code # Adjust if needed
     depends_on:
-        - db
-  db:
+        - ddev-db
+  ddev-db:
     extends:
       file: ${DDEV_GLOBAL_DIR}/docker-compose.db.yaml
       service: db
