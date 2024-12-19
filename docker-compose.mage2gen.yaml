@@ -1,7 +1,9 @@
 version: '3.6'
 services:
   mage2gen:
-    image: mage2gen # This will be built from your Dockerfile
+    # image: mage2gen # This will be built from your Dockerfile
+    build:
+      context: ./mage2gen
     ports:
       - "8000:8000"
     volumes:

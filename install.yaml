@@ -3,7 +3,7 @@ description: DDEV add-on for running a Django-based mage2gen application.
 version: 1.0.0
 project_files:
     - docker-compose.mage2gen.yaml
-    - Dockerfile
+    - mage2gen/Dockerfile
 
 pre_install_commands:
     - ddev exec "python -m venv /usr/app/venv" # Create the virtual environment
