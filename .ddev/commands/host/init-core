@@ -1,0 +1,17 @@
+#!/bin/bash
+## #ddev-generated
+## Description: Auto-downloads Mage2Gen core deps
+## Usage: init-core
+
+if [ ! -d "mage2gen-core" ]; then
+    echo "📥 Downloading Mage2Gen Core Dependencies..."
+    # Execute the project's native setup script
+    if [ -f "pull_mage2gen_core.sh" ]; then
+        bash pull_mage2gen_core.sh
+    else
+        echo "Error: pull_mage2gen_core.sh not found!"
+        exit 1
+    fi
+else
+    echo "✅ Core dependencies present."
+fi
