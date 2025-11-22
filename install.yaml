@@ -30,6 +30,3 @@ post_install_commands:
 
   # Cleanup the temporary templates folder in .ddev
   - rm -rf .ddev/templates
-
-dependencies:
-  - ddev/ddev-postgres
