@@ -1,16 +1,35 @@
-name: ddev-mage2gen
-description: DDEV add-on for running a Django-based mage2gen application.
+name: mage2gen
+description: DDEV add-on for running Mage2Gen with separate Frontend and Core forks.
 version: 1.0.0
-project_files:
-    - docker-compose.mage2gen.yaml
-    - mage2gen/Dockerfile
 
-pre_install_commands:
-    - ddev exec "python -m venv /usr/app/venv" # Create the virtual environment
-    - ddev exec "/usr/app/venv/bin/pip install -r requirements.txt" # Install requirements in venv
-    - ddev exec "cp settings/local.py.sample settings/local.py" # Copy the settings
-    - ddev exec "/usr/app/venv/bin/python manage.py migrate"
-    - ddev exec "/usr/app/venv/bin/python manage.py createcachetable"
-    - ddev exec "/usr/app/venv/bin/python manage.py createsuperuser --noinput --username admin --email admin@example.com --password admin" # Create a default admin user
+# 1. Copy these files from the Add-on Repo -> Project .ddev/ folder
+project_files:
+  - templates/config.mage2gen.yaml
+  - templates/docker-compose.mage2gen.yaml
+  - templates/scripts/link_core_library.sh
+  - templates/frontend/Dockerfile
+  - templates/settings/local.py
+
+# 2. Post-install actions to organize the project
 post_install_commands:
-    - ddev exec "node-sass scss/ --output css" # Compile the scss
+  # Setup main config
+  - cp .ddev/templates/config.mage2gen.yaml .ddev/config.mage2gen.yaml
+
+  # Setup Scripts
+  - mkdir -p .ddev/scripts
+  - cp .ddev/templates/scripts/link_core_library.sh .ddev/scripts/link_core_library.sh
+  - chmod +x .ddev/scripts/link_core_library.sh
+
+  # Setup Frontend Directory & Dockerfile
+  - mkdir -p frontend
+  - cp .ddev/templates/frontend/Dockerfile frontend/Dockerfile
+
+  # Setup Settings
+  - mkdir -p frontend/settings
+  - cp .ddev/templates/settings/local.py frontend/settings/local.py
+
+  # Cleanup the temporary templates folder in .ddev
+  - rm -rf .ddev/templates
+
+dependencies:
+  - ddev/ddev-postgres

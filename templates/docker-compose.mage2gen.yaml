@@ -1,0 +1,15 @@
+services:
+  web:
+    # Build using the Dockerfile we placed in frontend/
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    user: "$DDEV_UID:$DDEV_GID"
+    volumes:
+      # 1. Mount the Frontend (Self)
+      - "../frontend:/usr/app/src"
+      # 2. Mount the Sibling 'Core' Repository to a neutral location
+      - "../core:/usr/app/core_source"
+    command: /run_app.sh
+    depends_on:
+      - db

@@ -1,0 +1,20 @@
+type: general
+web_environment:
+  - DJANGO_SETTINGS_MODULE=settings
+  - DJANGO_SECRET_KEY=local-development-key
+  - MAGE2GEN_DB_NAME=db
+  - MAGE2GEN_DB_USER=db
+  - MAGE2GEN_DB_PASS=db
+  - MAGE2GEN_DB_HOST=db
+  - MAGE2GEN_DB_PORT=5432
+  - MODULE_GENERATION_PATH=/usr/app/src/generated_modules
+  - HTTP_EXPOSE=8000
+
+hooks:
+  post-start:
+    # Link the core library
+    - exec: "/usr/app/src/.ddev/scripts/link_core_library.sh"
+    # Run Migrations
+    - exec: "python manage.py migrate"
+    # Create cache table
+    - exec: "python manage.py createcachetable"
